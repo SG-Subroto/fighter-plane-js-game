@@ -34,8 +34,24 @@ class Scene1 extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 24
         });
+
+        this.load.spritesheet("beam", "assets/spritesheets/beam.png", {
+            frameWidth: 16,
+            frameHeight: 16
+        });
+
+        this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml")
+
+        // 1.1 load sounds in both formats mp3 and ogg
+        this.load.audio("audio_beam", ["assets/sounds/beam.ogg", "assets/sounds/beam.mp3"]);
+        this.load.audio("audio_explosion", ["assets/sounds/explosion.ogg", "assets/sounds/explosion.mp3"]);
+        this.load.audio("audio_pickup", ["assets/sounds/pickup.ogg", "assets/sounds/pickup.mp3"]);
+        this.load.audio("music", ["assets/sounds/sci-fi_platformer12.ogg", "assets/sounds/sci-fi_platformer12.mp3"]);
     }
     create() {
+
+        // this.add.image(0, 0, 'background').setOrigin(0).setDisplaySize(456, 472)
+
         this.add.text(20, 20, "Loading game...");
         this.scene.start("playGame");
 
@@ -90,6 +106,13 @@ class Scene1 extends Phaser.Scene {
         this.anims.create({
             key: "thrust",
             frames: this.anims.generateFrameNumbers("player"),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "beam_anim",
+            frames: this.anims.generateFrameNumbers("beam"),
             frameRate: 20,
             repeat: -1
         });
